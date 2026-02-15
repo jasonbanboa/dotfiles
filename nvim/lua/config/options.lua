@@ -9,3 +9,9 @@ vim.opt.softtabstop = 2
 vim.opt.expandtab = true
 
 vim.opt.tabstop = 2
+
+vim.g.ai_cmp = false
+
+-- vim.keymap.set({ "n", "x", "o" }, "<C-f>", function()
+--   require("flash").jump()
+-- end, { desc = "Flash Jump" })

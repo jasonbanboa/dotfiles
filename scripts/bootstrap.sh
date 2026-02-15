@@ -464,6 +464,31 @@ install_neovim() {
   fi
 }
 
+bash_completion_available() {
+  [[ -f /usr/share/bash-completion/bash_completion || -f /etc/bash_completion ]]
+}
+
+install_shell_suggestion_tools() {
+  local item="bash suggestions (bash-completion + fzf)"
+
+  if command_exists fzf && bash_completion_available; then
+    mark_skipped "$item" "already installed"
+    return
+  fi
+
+  info "Installing $item..."
+  if install_package bash-completion fzf; then
+    hash -r
+    if command_exists fzf && bash_completion_available; then
+      mark_installed "$item"
+    else
+      mark_failed "$item" "install finished but tools not detected"
+    fi
+  else
+    mark_failed "$item" "package install failed"
+  fi
+}
+
 install_oh_my_posh() {
   local item="oh-my-posh"
 
@@ -648,6 +673,7 @@ main() {
   install_github_copilot_cli
   install_codex_cli
   install_neovim
+  install_shell_suggestion_tools
   install_oh_my_posh
   install_tmux
 
