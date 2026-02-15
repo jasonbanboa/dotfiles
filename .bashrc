@@ -190,7 +190,7 @@ xterm* | rxvt*)
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
   alias vim='nvim'
 export PATH="/snap/bin:$PATH"
-. "$HOME/.cargo/env"
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
   ;;
 *) ;;
 esac
@@ -198,4 +198,3 @@ esac
 # oh-my-posh
 export PATH="$HOME/.local/bin:$PATH"
 eval "$(oh-my-posh init bash --config ~/.config/oh-my-posh/themes/M365Princess.omp.json)"
-
