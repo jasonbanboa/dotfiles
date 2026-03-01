@@ -70,12 +70,12 @@
           "foreground": "p:white",
           "powerline_symbol": "\ue0b0",
           "options": {
-            "branch_icon": "",
+            "branch_icon": " ",
             "fetch_status": false,
-            "fetch_upstream_icon": true
+            "fetch_upstream_icon": false
           },
           "style": "powerline",
-          "template": " \u279c ({{ .UpstreamIcon }}{{ .HEAD }}{{ if gt .StashCount 0 }} \ueb4b {{ .StashCount }}{{ end }}) ",
+          "template": " ➜ ({{ .HEAD }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }}) ",
           "type": "git"
         },
         {

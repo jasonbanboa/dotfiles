@@ -142,5 +142,5 @@ export NVM_DIR="$HOME/.nvm"
 
 # oh-my-posh
 if command -v oh-my-posh >/dev/null 2>&1; then
-  eval "$(oh-my-posh init bash --config "$HOME/.config/oh-my-posh/themes/M365Princess.omp.json")"
+  eval "$(oh-my-posh init bash --config "$HOME/.config/oh-my-posh/themes/amro-like.omp.json")"
 fi
