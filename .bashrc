@@ -141,6 +141,9 @@ export NVM_DIR="$HOME/.nvm"
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 
 # oh-my-posh
-if command -v oh-my-posh >/dev/null 2>&1; then
-  eval "$(oh-my-posh init bash --config "$HOME/.config/oh-my-posh/themes/amro-like.omp.json")"
-fi
+# if command -v oh-my-posh >/dev/null 2>&1; then
+#   eval "$(oh-my-posh init bash --config "$HOME/.config/oh-my-posh/themes/amro-like.omp.json")"
+# fi
+#
+export STARSHIP_CONFIG=~/dotfiles/starship/starship.toml
+eval "$(starship init bash)"

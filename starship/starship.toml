@@ -1,0 +1,38 @@
+format = """
+$username$directory${custom.git_branch}$line_break${custom.root}$character"""
+
+[username]
+show_always = true
+format = "[$user]($style) "
+style_user = "#45F1C2"
+style_root = "#CD5E42"
+
+[directory]
+truncation_length = 0
+truncate_to_repo = false
+format = "[ $path]($style) "
+style = "#0CA0D8"
+
+[directory.substitutions]
+# keep default home ~ substitution
+
+# Disabled built-in git_branch — libgit2 misreads HEAD in submodule worktrees.
+# Using custom.git_branch below instead, which shells out to the git CLI.
+[git_branch]
+disabled = true
+
+[character]
+success_symbol = "[➜](#CD4277)"
+error_symbol = "[➜](red)"
+
+[custom.git_branch]
+command = 'git rev-parse --abbrev-ref HEAD 2>/dev/null'
+when = 'git rev-parse --is-inside-work-tree 2>/dev/null'
+format = '[ $output](#14A5AE)'
+description = "Git branch via CLI (fixes submodule worktree bug)"
+
+[custom.root]
+command = 'echo '
+when = 'test $(id -u) -eq 0'
+format = '[$output](#CD5E42) '
+description = "Root indicator"
