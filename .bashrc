@@ -145,5 +145,31 @@ export NVM_DIR="$HOME/.nvm"
 #   eval "$(oh-my-posh init bash --config "$HOME/.config/oh-my-posh/themes/amro-like.omp.json")"
 # fi
 #
+
+DOTFILES_DIR="$HOME/dotfiles"
+CONFIG_DIR="$HOME/.config"
+
+# Create the .config directory if it doesn't exist
+mkdir -p "$CONFIG_DIR"
+
+# Loop through all directories in the dotfiles directory
+for dir in "$DOTFILES_DIR"/*/; do
+  # Get the base name of the directory (e.g., nvim from ~/.dotfiles/nvim/)
+  DIR_NAME=$(basename "$dir")
+
+  # Define the source and destination paths
+  SOURCE_PATH="$dir"
+  DEST_PATH="$CONFIG_DIR/$DIR_NAME"
+
+  # link only if the destination is not a symlink to the source
+  if [ ! -L "$DEST_PATH" ] || [ "$(readlink "$DEST_PATH")" != "${SOURCE_PATH%/}" ]; then
+    ln -sfn "$SOURCE_PATH" "$DEST_PATH"
+    echo "Linked $SOURCE_PATH to $DEST_PATH"
+  fi
+done
+
+# link .bashrc
+ln -sfn ~/dotfiles/.bashrc ~/.bashrc
+
 export STARSHIP_CONFIG=~/dotfiles/starship/starship.toml
 eval "$(starship init bash)"
