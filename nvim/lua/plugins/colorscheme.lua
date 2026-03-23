@@ -3,6 +3,27 @@ return {
   lazy = false,
   priority = 1000,
   config = function()
+    require("nordic").setup({
+      on_palette = function(palette) end,
+      after_palette = function(palette) end,
+      on_highlight = function(highlights, palette) end,
+      -- Enable bold keywords.
+      bold_keywords = true,
+      -- Cursorline options.
+      cursorline = {
+        bold = true,
+        bold_number = true,
+        theme = "dark",
+        blend = 1,
+      },
+      -- Visual selection options.
+      visual = {
+        bold = true,
+        bold_number = true,
+        theme = "dark",
+        blend = 1,
+      },
+    })
     require("nordic").load()
   end,
 }
