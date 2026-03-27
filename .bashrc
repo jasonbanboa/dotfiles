@@ -52,35 +52,6 @@ if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
   debian_chroot="$(cat /etc/debian_chroot)"
 fi
 
-# Set a fancy prompt (non-color, unless we know we want color).
-case "$TERM" in
-xterm-color | *-256color) color_prompt=yes ;;
-esac
-
-if [ -n "${force_color_prompt:-}" ]; then
-  if [ -x /usr/bin/tput ] && tput setaf 1 >/dev/null 2>&1; then
-    color_prompt=yes
-  else
-    color_prompt=
-  fi
-fi
-
-if [ "${color_prompt:-}" = yes ]; then
-  PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-else
-  PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-fi
-unset color_prompt force_color_prompt
-
-# If this is an xterm/rxvt set the title to user@host:dir.
-case "$TERM" in
-xterm* | rxvt*)
-  if [ -z "${TMUX:-}" ]; then
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-  fi
-  ;;
-esac
-
 # Enable color support of ls and add handy aliases.
 if [ -x /usr/bin/dircolors ]; then
   test -r "$HOME/.dircolors" && eval "$(dircolors -b "$HOME/.dircolors")" || eval "$(dircolors -b)"
@@ -140,36 +111,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 
-# oh-my-posh
-# if command -v oh-my-posh >/dev/null 2>&1; then
-#   eval "$(oh-my-posh init bash --config "$HOME/.config/oh-my-posh/themes/amro-like.omp.json")"
-# fi
-#
-
-DOTFILES_DIR="$HOME/dotfiles"
-CONFIG_DIR="$HOME/.config"
-
-# Create the .config directory if it doesn't exist
-mkdir -p "$CONFIG_DIR"
-
-# Loop through all directories in the dotfiles directory
-for dir in "$DOTFILES_DIR"/*/; do
-  # Get the base name of the directory (e.g., nvim from ~/.dotfiles/nvim/)
-  DIR_NAME=$(basename "$dir")
-
-  # Define the source and destination paths
-  SOURCE_PATH="$dir"
-  DEST_PATH="$CONFIG_DIR/$DIR_NAME"
-
-  # link only if the destination is not a symlink to the source
-  if [ ! -L "$DEST_PATH" ] || [ "$(readlink "$DEST_PATH")" != "${SOURCE_PATH%/}" ]; then
-    ln -sfn "$SOURCE_PATH" "$DEST_PATH"
-    echo "Linked $SOURCE_PATH to $DEST_PATH"
-  fi
-done
-
-# link .bashrc
-ln -sfn ~/dotfiles/.bashrc ~/.bashrc
-
 export STARSHIP_CONFIG=~/dotfiles/starship/starship.toml
 eval "$(starship init bash)"
+

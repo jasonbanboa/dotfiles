@@ -1,3 +1,4 @@
 .config/tmux/plugins
 tmux/plugins
 node_modules/
+.nvimlog

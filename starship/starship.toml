@@ -13,9 +13,6 @@ truncate_to_repo = false
 format = "[ $path]($style) "
 style = "#0CA0D8"
 
-[directory.substitutions]
-# keep default home ~ substitution
-
 # Disabled built-in git_branch — libgit2 misreads HEAD in submodule worktrees.
 # Using custom.git_branch below instead, which shells out to the git CLI.
 [git_branch]
