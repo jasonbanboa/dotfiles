@@ -110,7 +110,10 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
 
 export STARSHIP_CONFIG=~/dotfiles/starship/starship.toml
 eval "$(starship init bash)"
 
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+eval "$(zoxide init bash)"
