@@ -12,6 +12,9 @@ vim.opt.tabstop = 2
 
 vim.g.ai_cmp = false
 
+-- Don't auto-cd into project subdirectories so grep/find searches the full project
+vim.g.root_spec = { "cwd" }
+
 -- vim.keymap.set({ "n", "x", "o" }, "<C-f>", function()
 --   require("flash").jump()
 -- end, { desc = "Flash Jump" })
