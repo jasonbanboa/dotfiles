@@ -7,6 +7,7 @@ mkdir -p "$CONFIG"
 for dir in "$DOTFILES"/*/; do
     name="$(basename "$dir")"
     [[ "$name" == "scripts" ]] && continue
+    [[ "$name" == "bash" ]] && continue
 
     if [ -e "$CONFIG/$name" ] && [ ! -L "$CONFIG/$name" ]; then
         mv "$CONFIG/$name" "$CONFIG/$name.bak"
@@ -16,5 +17,5 @@ for dir in "$DOTFILES"/*/; do
     echo "Linked $name → $CONFIG/$name"
 done
 
-ln -sf "$DOTFILES/.bashrc" ~/.bashrc
-echo "Linked .bashrc → ~/.bashrc"
+ln -sf "$DOTFILES/bash/bashrc" ~/.bashrc
+echo "Linked bash/bashrc → ~/.bashrc"
