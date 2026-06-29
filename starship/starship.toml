@@ -1,35 +1,62 @@
-format = """
-$username$directory${custom.git_branch}$line_break${custom.root}$character"""
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = "$username$directory${custom.on}${custom.git_branch}$git_status${custom.root}$line_break$character"
+
+palette = "rose_pine"
+
+[palettes.rose_pine]
+base = "#191724"
+surface = "#1f1d2e"
+overlay = "#26233a"
+muted = "#6e6a86"
+subtle = "#907aa9"
+text = "#e0def4"
+iris = "#c4a7e7"
+foam = "#9ccfd8"
+pine = "#31748f"
+love = "#eb6f92"
+gold = "#f6c177"
+rose = "#ebbcba"
+highlight_low = "#211f32"
+highlight_med = "#403d52"
+highlight_high = "#524f67"
+
+[character]
+success_symbol = "[➜](bold iris)"
+error_symbol = "[➜](bold love)"
 
 [username]
 show_always = true
-format = "[$user]($style) "
-style_user = "#45F1C2"
-style_root = "#CD5E42"
+format = "[$user](love) "
 
 [directory]
+style = "bold pine"
 truncation_length = 0
 truncate_to_repo = false
 format = "[ $path]($style) "
-style = "#0CA0D8"
 
-# Disabled built-in git_branch — libgit2 misreads HEAD in submodule worktrees.
-# Using custom.git_branch below instead, which shells out to the git CLI.
 [git_branch]
 disabled = true
 
-[character]
-success_symbol = "[➜](#CD4277)"
-error_symbol = "[➜](red)"
+[custom.on]
+when = "git rev-parse --is-inside-work-tree 2>/dev/null"
+command = "true"
+format = "[on]($style) "
+style = "bold text"
 
 [custom.git_branch]
 command = 'git rev-parse --abbrev-ref HEAD 2>/dev/null'
 when = 'git rev-parse --is-inside-work-tree 2>/dev/null'
-format = '[ $output](#14A5AE)'
+format = '[ $output](foam) '
 description = "Git branch via CLI (fixes submodule worktree bug)"
 
+[git_status]
+style = "bold gold"
+modified = "!${count}"
+untracked = "?${count}"
+
 [custom.root]
-command = 'echo '
+command = 'echo '
 when = 'test $(id -u) -eq 0'
 format = '[$output](#CD5E42) '
 description = "Root indicator"
