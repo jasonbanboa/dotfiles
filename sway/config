@@ -1,0 +1,90 @@
+set $mod Mod1
+set $term kitty
+set $menu rofi -show drun
+
+exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
+exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
+
+bindsym $mod+Return exec $term
+bindsym $mod+d exec $menu
+
+bindsym $mod+h focus left
+bindsym $mod+l focus right
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+l move right
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+
+
+bindsym $mod+Shift+r reload
+bindsym $mod+x kill
+
+bindsym $mod+v split h
+bindsym $mod+s split v
+
+bindsym $mod+u workspace number 1
+bindsym $mod+i workspace number 2
+bindsym $mod+o workspace number 3
+bindsym $mod+p workspace number 4
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 0
+
+bindsym $mod+Shift+u move container to workspace number 1
+bindsym $mod+Shift+i move container to workspace number 2
+bindsym $mod+Shift+o move container to workspace number 3
+bindsym $mod+Shift+p move container to workspace number 4
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 0
+
+
+
+input type:keyboard {
+    repeat_delay 200
+    repeat_rate 30
+}
+
+smart_gaps off
+gaps inner 10
+gaps outer 5
+
+mode "resize" {
+    bindsym h resize shrink width 10px
+    bindsym j resize grow height 10px
+    bindsym k resize shrink height 10px
+    bindsym l resize grow width 10px
+
+    bindsym Escape mode "default"
+    bindsym Return mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+f fullscreen toggle
+
+default_border pixel 1
+
+# Rose Pine
+set $base    #191724
+set $surface #1f1d2e
+set $overlay #26233a
+set $muted   #6e6a86
+set $text    #e0def4
+set $love    #eb6f92
+set $iris    #c4a7e7
+
+#                       border   background  text   indicator  child_border
+client.focused          $iris    $surface    $text  $iris      $iris
+client.focused_inactive $overlay $surface    $muted $overlay   $overlay
+client.unfocused        $overlay $base       $muted $overlay   $overlay
+client.urgent           $love    $surface    $text  $love      $love
+
+
+exec_always sh -c 'pkill -x waybar; waybar'
