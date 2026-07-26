@@ -25,6 +25,31 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
 	callback = set_project_indent,
 })
 
+-- snacks.image rewrites the lines of an image buffer while rendering (progress
+-- spinner, error report) and never clears 'modified', so closing a previewed
+-- image asks to save a file you never touched. Force the flag back off.
+vim.api.nvim_create_autocmd("BufModifiedSet", {
+	group = vim.api.nvim_create_augroup("image_never_modified", { clear = true }),
+	pattern = {
+		"*.png",
+		"*.jpg",
+		"*.jpeg",
+		"*.gif",
+		"*.bmp",
+		"*.webp",
+		"*.tiff",
+		"*.heic",
+		"*.avif",
+		"*.pdf",
+		"*.svg",
+	},
+	callback = function(ev)
+		if vim.bo[ev.buf].modified then
+			vim.bo[ev.buf].modified = false
+		end
+	end,
+})
+
 -- Also set on DirChanged in case user changes directory
 vim.api.nvim_create_autocmd("DirChanged", {
 	callback = function()

@@ -27,6 +27,7 @@ add_path_if_missing() {
 }
 
 # Keep local binaries and snap binaries available in every shell.
+add_path_if_missing "$HOME/bin"
 add_path_if_missing "$HOME/.local/bin"
 add_path_if_missing "/snap/bin"
 export PATH

@@ -8,6 +8,15 @@ return {
     { "<leader>fE", false },
   },
   opts = {
+    image = {
+      -- view images directly in the buffer (wezterm speaks the kitty graphics protocol)
+      -- requires imagemagick (`magick`) and `set -g allow-passthrough on` in tmux
+      enabled = true,
+      doc = {
+        inline = true, -- render images inline in markdown/etc.
+        float = true, -- fallback float when inline isn't supported
+      },
+    },
     explorer = {
       replace_netrw = false, -- let neo-tree handle `nvim .` instead of snacks explorer
     },
