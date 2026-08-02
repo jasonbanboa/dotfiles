@@ -1,0 +1,4 @@
+#!/bin/bash
+# Launch rofi on the currently focused output.
+output="$(swaymsg -t get_outputs -r | jq -r 'first(.[] | select(.focused) | .name) // empty')"
+exec rofi -show drun ${output:+-m "$output"}

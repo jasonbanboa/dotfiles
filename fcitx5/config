@@ -1,0 +1,8 @@
+[Hotkey]
+# Enumerate when press trigger key repeatedly
+EnumerateWithTriggerKeys=True
+
+# Toggle between keyboard-us and hangul.
+# Right Alt sends the Hangul keysym via sway's korean:ralt_hangul xkb option.
+[Hotkey/TriggerKeys]
+0=Hangul

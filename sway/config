@@ -1,6 +1,7 @@
 set $mod Mod1
 set $term kitty
-set $menu rofi -show drun
+set $menu ~/.config/sway/rofi-menu
+
 
 exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
 exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
@@ -48,6 +49,8 @@ bindsym $mod+Shift+0 move container to workspace number 0
 input type:keyboard {
     repeat_delay 200
     repeat_rate 30
+    xkb_layout us
+    xkb_options korean:ralt_hangul
 }
 
 smart_gaps off
@@ -88,3 +91,16 @@ client.urgent           $love    $surface    $text  $love      $love
 
 
 exec_always sh -c 'pkill -x waybar; waybar'
+
+exec_always fcitx5 -d --replace
+
+
+
+output HDMI-A-1 position 0 0
+
+output eDP-1 position 1920 0
+
+workspace 1 output HDMI-A-1
+workspace 2 output HDMI-A-1
+workspace 3 output HDMI-A-1
+workspace 4 output HDMI-A-1
