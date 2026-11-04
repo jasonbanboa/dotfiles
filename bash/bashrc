@@ -6,14 +6,25 @@ case $- in
 esac
 
 if [[ "$TERM" != "dumb" ]]; then
+  # Inside tmux these have to be wrapped in the DCS passthrough. tmux otherwise
+  # swallows OSC 11 and starts painting the pane background explicitly, which
+  # makes the terminal draw opaque cells and kills window transparency.
+  _osc() {
+    if [ -n "$TMUX" ]; then
+      printf '\033Ptmux;\033\033]%s\007\033\\' "$1"
+    else
+      printf '\033]%s\033\\' "$1"
+    fi
+  }
   _rosepine=(191724 eb6f92 31748f f6c177 9ccfd8 c4a7e7 ebbcba e0def4
     6e6a86 eb6f92 31748f f6c177 9ccfd8 c4a7e7 ebbcba e0def4)
   for _i in "${!_rosepine[@]}"; do
-    printf '\033]4;%d;#%s\033\\' "$_i" "${_rosepine[$_i]}"
+    _osc "4;$_i;#${_rosepine[$_i]}"
   done
-  printf '\033]10;#e0def4\033\\'
-  printf '\033]11;#191724\033\\'
+  _osc "10;#e0def4"
+  _osc "11;#191724"
   unset _rosepine _i
+  unset -f _osc
 fi
 
 add_path_if_missing() {
