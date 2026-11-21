@@ -1,0 +1,9 @@
+# greetd 설정 — 적용: sudo install -m 644 ~/dotfiles/greetd/config.toml /etc/greetd/config.toml
+[terminal]
+# greetd 가 로그인 화면을 띄울 가상 터미널
+vt = 1
+
+[default_session]
+# 마지막 사용자/세션을 기억하고, 시계를 표시하며, 로그인 후 Hyprland 를 시작한다
+command = "tuigreet --time --remember --remember-session --asterisks --greeting 'Welcome' --cmd start-hyprland"
+user = "greeter"
